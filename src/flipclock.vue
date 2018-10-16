@@ -1,17 +1,13 @@
-/*
- * 翻页时钟组件
- * @Author: liangzc
- * @Date: 2018-06-08 10:19:55
- * @Last Modified by: liangzc
- * @Last Modified time: 2018-06-30 13:37:04
- */
- <template>
-  <div ref="flipclock"
-    class="flip-clock" />
+<template>
+<div
+  ref="flipclock"
+  class="flip-clock"
+/>
 </template>
+
 <script>
-//配置请参考 http://flipclockjs.com/
 import FlipClock from './flipclock.module.js';
+
 export default {
   name: 'flip-clock',
   props: {
