@@ -48,6 +48,13 @@ module.exports = {
   mode: 'development'
 };
 
+const TARGET = process.env.npm_lifecycle_event
+if (TARGET === 'build') {
+  module.exports.entry = './index.js'
+}
+
+
+
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = false;
   module.exports.mode = 'production'
