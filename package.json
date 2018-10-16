@@ -1,9 +1,9 @@
 {
-  "name": "@mvpleung/flipclock",
-  "version": "0.0.5",
-  "description": "flipclock for vue, 删除 jquery 依赖",
-  "email": "mvpleung@gmail.com",
-  "author": "mvpleung <mvpleung@gmail.com>",
+  "name": "flipclock",
+  "version": "1.0.0",
+  "description": "flipclock for vue",
+  "email": "steve@distantfutu.re",
+  "author": "Steve Gehrman",
   "license": "MIT",
   "main": "dist/build.js",
   "scripts": {
@@ -14,13 +14,6 @@
     "type": "git",
     "url": "https://github.com/mvpleung/vue-flipclock"
   },
-  "bugs": {
-    "url": "https://github.com/mvpleung/vue-flipclock/issues"
-  },
-  "keywords": [
-    "vue",
-    "flipclock"
-  ],
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "babel-loader": "^8.0.4",
