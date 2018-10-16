@@ -1,47 +1,35 @@
 var path = require('path');
 var webpack = require('webpack');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
-function resolve(dir) {
-  return path.join(__dirname, '.', dir);
-}
+const {
+  VueLoaderPlugin
+} = require('vue-loader')
 
 module.exports = {
-  entry: {
-    index: './index.js'
-  },
+  entry: './test.js',
+  target: 'web',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
-    filename: '[name].js'
-  },
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      vue$: 'vue/dist/vue.esm.js',
-      '@': resolve('src')
-    }
+    filename: 'build.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this nessessary.
-            scss: 'vue-style-loader!css-loader!sass-loader',
-            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader?cacheDirectory',
-        include: [resolve('src'), resolve('test')],
+        loader: 'babel-loader',
         exclude: /node_modules/
       },
       {
@@ -53,23 +41,16 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
-  performance: {
-    hints: false
-  },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   devtool: '#eval-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, '../src/components'),
-    port: 9000, //端口改为9000
-    open: true
-  }
+  mode: 'development'
 };
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = false;
+  module.exports.mode = 'production'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
@@ -82,14 +63,11 @@ if (process.env.NODE_ENV === 'production') {
       parallel: true,
       uglifyOptions: {
         output: {
-          beautify: false,
+          semicolons: false,
           comments: false // remove all comments,
         }
       },
       sourceMap: false
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
     })
   ]);
 }
