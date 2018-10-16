@@ -139,42 +139,39 @@ Base.prototype = {
 };
 
 // initialise
-Base = Base.extend(
-  {
-    constructor: function() {
-      this.extend(arguments[0]);
+Base = Base.extend({
+  constructor: function() {
+    this.extend(arguments[0]);
+  }
+}, {
+  ancestor: Object,
+  version: '1.1',
+
+  forEach: function(object, block, context) {
+    for (var key in object) {
+      if (this.prototype[key] === undefined) {
+        block.call(context, object[key], key, object);
+      }
     }
   },
-  {
-    ancestor: Object,
-    version: '1.1',
 
-    forEach: function(object, block, context) {
-      for (var key in object) {
-        if (this.prototype[key] === undefined) {
-          block.call(context, object[key], key, object);
-        }
+  implement: function() {
+    for (var i = 0; i < arguments.length; i++) {
+      if (typeof arguments[i] === 'function') {
+        // if it's a function, call it
+        arguments[i](this.prototype);
+      } else {
+        // add the interface using the extend method
+        this.prototype.extend(arguments[i]);
       }
-    },
-
-    implement: function() {
-      for (var i = 0; i < arguments.length; i++) {
-        if (typeof arguments[i] === 'function') {
-          // if it's a function, call it
-          arguments[i](this.prototype);
-        } else {
-          // add the interface using the extend method
-          this.prototype.extend(arguments[i]);
-        }
-      }
-      return this;
-    },
-
-    toString: function() {
-      return String(this.valueOf());
     }
+    return this;
+  },
+
+  toString: function() {
+    return String(this.valueOf());
   }
-);
+});
 /*jshint smarttabs:true */
 /**
  * FlipClock.js
@@ -426,15 +423,15 @@ FlipClock.Face = FlipClock.Base.extend({
 
     var html = [
       '<span class="' +
-        this.factory.classes.divider +
-        ' ' +
-        (css ? css : '').toLowerCase() +
-        '">',
+      this.factory.classes.divider +
+      ' ' +
+      (css ? css : '').toLowerCase() +
+      '">',
       '<span class="' +
-        this.factory.classes.label +
-        '">' +
-        (this.label && label ? label : '') +
-        '</span>',
+      this.factory.classes.label +
+      '">' +
+      (this.label && label ? label : '') +
+      '</span>',
       dots,
       '</span>'
     ];
@@ -473,8 +470,7 @@ FlipClock.Face = FlipClock.Base.extend({
   reset: function() {
     this.factory.time = new FlipClock.Time(
       this.factory,
-      this.factory.original ? Math.round(this.factory.original) : 0,
-      {
+      this.factory.original ? Math.round(this.factory.original) : 0, {
         minimumDigits: this.factory.minimumDigits
       }
     );
@@ -579,9 +575,9 @@ FlipClock.Face = FlipClock.Base.extend({
  *
  * @param 	object  A  object or CSS selector used to fetch
  				    the wrapping DOM nodes
- * @param 	mixed   This is the digit used to set the clock. If an 
- 				    object is passed, 0 will be used.	
- * @param 	object  An object of properties to override the default	
+ * @param 	mixed   This is the digit used to set the clock. If an
+ 				    object is passed, 0 will be used.
+ * @param 	object  An object of properties to override the default
  */
 
 FlipClock.Factory = FlipClock.Base.extend({
@@ -1103,10 +1099,10 @@ FlipClock.List = FlipClock.Base.extend({
     return Base.createDom(
       [
         '<ul class="' +
-          this.classes.flip +
-          ' ' +
-          (this.factory.running ? this.factory.classes.play : '') +
-          '">',
+        this.classes.flip +
+        ' ' +
+        (this.factory.running ? this.factory.classes.play : '') +
+        '">',
         this.createListItem(this.classes.before, lastDigit),
         this.createListItem(this.classes.active, this.digit),
         '</ul>'
@@ -1570,7 +1566,7 @@ FlipClock.Time = FlipClock.Base.extend({
 	getYears: function() {
 		return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
 	},
-		
+
 	getDecades: function() {
 		return Math.floor(this.getWeeks() / 10);
 	}*/

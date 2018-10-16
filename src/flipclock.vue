@@ -1,7 +1,7 @@
 /*
  * 翻页时钟组件
- * @Author: liangzc 
- * @Date: 2018-06-08 10:19:55 
+ * @Author: liangzc
+ * @Date: 2018-06-08 10:19:55
  * @Last Modified by: liangzc
  * @Last Modified time: 2018-06-30 13:37:04
  */
@@ -35,7 +35,7 @@ export default {
      */
     options: {
       type: Object,
-      default() {
+      default: () => {
         return {};
       }
     }
@@ -76,8 +76,7 @@ export default {
         options.digit !== undefined ? options.digit : this.digit,
         Object.assign({}, options, {
           autoStart: options.hasOwnProperty('autoStart') ?
-            options.autoStart :
-            true
+            options.autoStart : true
         })
       );
       if (
@@ -166,5 +165,3 @@ export default {
 <style lang="scss">
 @import './flipclock.css';
 </style>
-
- 
