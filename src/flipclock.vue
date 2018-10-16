@@ -11,7 +11,7 @@
 </template>
 <script>
 //配置请参考 http://flipclockjs.com/
-import FlipClock from './flipclock.module.min';
+import FlipClock from './flipclock.module.js';
 export default {
   name: 'flip-clock',
   props: {
