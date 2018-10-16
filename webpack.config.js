@@ -4,6 +4,7 @@ var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const {
   VueLoaderPlugin
 } = require('vue-loader')
+const merge = require('webpack-merge')
 
 module.exports = {
   entry: './test.js',
@@ -49,11 +50,19 @@ module.exports = {
 };
 
 const TARGET = process.env.npm_lifecycle_event
-if (TARGET === 'build') {
-  module.exports.entry = './index.js'
+
+if (TARGET === 'dist') {
+  module.exports = merge(module.exports, {
+    entry: './index.js',
+    target: 'web',
+    output: {
+      filename: 'build.js',
+      library: 'flipclock',
+      libraryTarget: 'umd',
+      publicPath: '/'
+    }
+  })
 }
-
-
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = false;
