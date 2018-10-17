@@ -20,10 +20,6 @@ Base.insertBefore = function(newEl, el) {
 }
 
 Base.extend = function(_instance, _static) {
-  // subclass
-
-  'use strict'
-
   let extend = Base.prototype.extend
 
   // build the prototype
