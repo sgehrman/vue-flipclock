@@ -15,8 +15,7 @@ export default {
     return {
       options: {
         digit: 0,
-        label: true,
-        clockFace: 'DailyCounter'
+        label: true
       }
     }
   },
