@@ -352,10 +352,6 @@ FlipClock.Face = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Triggers when the numbers on the clock flip
-   */
-
   flip: function(time, doNotAddPlayClass) {
     let t = this
 
