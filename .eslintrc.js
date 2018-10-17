@@ -129,7 +129,7 @@ module.exports = {
     'prefer-spread': 0, //首选展开运算
     'keyword-spacing': 2,
     'default-case': 2, //switch语句最后必须有default
-    semi: [2, 'always'], //0:关闭，1:警告，2:异常
+    semi: [2, 'never'], //0:关闭，1:警告，2:异常
     indent: [
       'error',
       2,
