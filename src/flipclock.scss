@@ -141,7 +141,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.flip-clock-wrapper ul li a div.down {
+.flip-clock-wrapper ul li a div.downer {
   transform-origin: 50% 0;
   bottom: 0;
   border-bottom-left-radius: 6px;
@@ -167,7 +167,7 @@
   top: 0;
 }
 
-.flip-clock-wrapper ul li a div.down div.inn {
+.flip-clock-wrapper ul li a div.downer div.inn {
   bottom: 0;
 }
 
@@ -231,7 +231,7 @@
   }
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active .down {
+.flip-clock-wrapper ul.play li.flip-clock-active .downer {
   z-index: 2;
   animation: turn 0.5s 0.5s linear both;
 }
@@ -276,12 +276,12 @@
   animation: hide 0.5s 0.3s linear both;
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-before .down .shadow {
+.flip-clock-wrapper ul.play li.flip-clock-before .downer .shadow {
   background: linear, to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%;
   animation: show 0.5s linear both;
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active .down .shadow {
+.flip-clock-wrapper ul.play li.flip-clock-active .downer .shadow {
   background: linear, to bottom, black 0%, rgba(0, 0, 0, 0.1) 100%;
   animation: hide 0.5s 0.2s linear both;
 }

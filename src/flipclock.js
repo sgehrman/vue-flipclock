@@ -609,7 +609,7 @@ FlipClock.List = FlipClock.Base.extend({
       '<div class="shadow"></div>',
       '<div class="inn">' + (value ? value : '') + '</div>',
       '</div>',
-      '<div class="down">',
+      '<div class="downer">',
       '<div class="shadow"></div>',
       '<div class="inn">' + (value ? value : '') + '</div>',
       '</div>',
