@@ -169,10 +169,6 @@ let FlipClock = function(obj, digit, options) {
   return new FlipClock.Factory(obj, digit, options)
 }
 
-/**
- * The global FlipClock.Lang object
- */
-
 FlipClock.Lang = {}
 
 FlipClock.Base = Base.extend({
@@ -234,40 +230,11 @@ FlipClock.Base = Base.extend({
 })
 
 FlipClock.Face = FlipClock.Base.extend({
-  /**
-   * Sets whether or not the clock should start upon instantiation
-   */
-
   autoStart: true,
-
-  /**
-   * An array of  objects used for the dividers (the colons)
-   */
-
   dividers: [],
-
-  /**
-   * 是否显示label 标签
-   */
-
   label: true,
-
-  /**
-   * 是否显示中间的点
-   */
-
   dot: true,
-
-  /**
-   * An array of FlipClock.List objects
-   */
-
   factory: false,
-
-  /**
-   * An array of FlipClock.List objects
-   */
-
   lists: [],
 
   constructor: function(factory, options) {
@@ -362,21 +329,8 @@ FlipClock.Face = FlipClock.Base.extend({
     this.appendDigitToClock(obj)
   },
 
-  /**
-   * Triggers when the clock is started
-   */
-
   start: function() {},
-
-  /**
-   * Triggers when the time on the clock stops
-   */
-
   stop: function() {},
-
-  /**
-   * Auto increments/decrements the value of the clock face
-   */
 
   autoIncrement: function() {
     if (!this.factory.countdown) {
@@ -386,17 +340,9 @@ FlipClock.Face = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Increments the value of the clock face
-   */
-
   increment: function() {
     this.factory.time.addSecond()
   },
-
-  /**
-   * Decrements the value of the clock face
-   */
 
   decrement: function() {
     if (this.factory.time.getTimeSeconds() === 0) {
@@ -430,26 +376,8 @@ FlipClock.Face = FlipClock.Base.extend({
 })
 
 FlipClock.Factory = FlipClock.Base.extend({
-  /**
-   * The clock's animation rate.
-   *
-   * Note, currently this property doesn't do anything.
-   * This property is here to be used in the future to
-   * programmaticaly set the clock's animation speed
-   */
-
   animationRate: 1000,
-
-  /**
-   * Auto start the clock on page load (True|False)
-   */
-
   autoStart: true,
-
-  /**
-   * The callback methods
-   */
-
   callbacks: {
     destroy: false,
     create: false,
@@ -459,10 +387,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     stop: false,
     reset: false
   },
-
-  /**
-   * The CSS classes
-   */
 
   classes: {
     active: 'flip-clock-active',
@@ -474,90 +398,19 @@ FlipClock.Factory = FlipClock.Base.extend({
     play: 'play',
     wrapper: 'flip-clock-wrapper'
   },
-
-  /**
-   * The name of the clock face class in use
-   */
-
   clockFace: 'HourlyCounter',
-
-  /**
-   * The name of the clock face class in use
-   */
-
   countdown: false,
-
-  /**
-   * The name of the default clock face class to use if the defined
-   * clockFace variable is not a valid FlipClock.Face object
-   */
-
   defaultClockFace: 'HourlyCounter',
-
-  /**
-   * The default language
-   */
-
   defaultLanguage: 'english',
-
-  /**
-   * The  object
-   */
-
   $el: false,
-
-  /**
-   * The FlipClock.Face object
-   */
-
   face: true,
-
-  /**
-   * The language object after it has been loaded
-   */
-
   lang: false,
-
-  /**
-   * The language being used to display labels (string)
-   */
-
   language: 'english',
-
-  /**
-   * The minimum digits the clock must have
-   */
-
   minimumDigits: 0,
-
-  /**
-   * The original starting value of the clock. Used for the reset method.
-   */
-
   original: false,
-
-  /**
-   * Is the clock running? (True|False)
-   */
-
   running: false,
-
-  /**
-   * The FlipClock.Time object
-   */
-
   time: false,
-
-  /**
-   * The FlipClock.Timer object
-   */
-
   timer: false,
-
-  /**
-   * The  object (depcrecated)
-   */
-
   $wrapper: false,
 
   constructor: function(obj, digit, options) {
@@ -720,50 +573,17 @@ FlipClock.Factory = FlipClock.Base.extend({
 })
 
 FlipClock.List = FlipClock.Base.extend({
-  /**
-   * The digit (0-9)
-   */
-
   digit: 0,
-
-  /**
-   * The CSS classes
-   */
-
   classes: {
     active: 'flip-clock-active',
     before: 'flip-clock-before',
     flip: 'flip'
   },
 
-  /**
-   * The parent FlipClock.Factory object
-   */
-
   factory: false,
-
-  /**
-   * The  object
-   */
-
   $el: false,
-
-  /**
-   * The  object (deprecated)
-   */
-
   $obj: false,
-
-  /**
-   * The items in the list
-   */
-
   items: [],
-
-  /**
-   * The last digit
-   */
-
   lastDigit: 0,
 
   constructor: function(factory, digit, options) {
@@ -869,22 +689,8 @@ String.prototype.ucfirst = function() {
 }
 
 FlipClock.Time = FlipClock.Base.extend({
-  /**
-   * The time (in seconds) or a date object
-   */
-
   time: 0,
-
-  /**
-   * The parent FlipClock.Factory object
-   */
-
   factory: false,
-
-  /**
-   * The minimum number of digits the clock face must have
-   */
-
   minimumDigits: 0,
 
   constructor: function(factory, time, options) {
@@ -1066,8 +872,6 @@ FlipClock.Time = FlipClock.Base.extend({
       date = this.getDateObject()
     }
 
-    console.log(date)
-
     let hours = date.getHours()
     let data = [
       hours > 12 ? hours - 12 : hours === 0 ? 12 : hours,
@@ -1162,29 +966,9 @@ FlipClock.Timer = FlipClock.Base.extend({
     stop: false,
     reset: false
   },
-
-  /**
-   * FlipClock timer count (how many intervals have passed)
-   */
-
   count: 0,
-
-  /**
-   * The parent FlipClock.Factory object
-   */
-
   factory: false,
-
-  /**
-   * Timer interval (1 second by default)
-   */
-
   interval: 1000,
-
-  /**
-   * The rate of the animation in milliseconds (not currently in use)
-   */
-
   animationRate: 1000,
 
   constructor: function(factory, options) {
@@ -1303,10 +1087,6 @@ FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
 })
 
 FlipClock.CounterFace = FlipClock.Face.extend({
-  /**
-   * Tells the counter clock face if it should auto-increment
-   */
-
   shouldAutoIncrement: false,
 
   constructor: function(factory, options) {
@@ -1515,15 +1295,7 @@ FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
 })
 
 FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
-  /**
-   * The meridium  DOM object
-   */
-
   meridium: false,
-
-  /**
-   * The meridium text as string for easy access
-   */
 
   meridiumText: 'AM',
 
