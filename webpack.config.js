@@ -75,25 +75,22 @@ if (TARGET === 'dist') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = false;
-  module.exports.mode = 'production'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: "'production'"
-      }
-    }),
-    new UglifyJSPlugin({
-      cache: true,
-      parallel: true,
-      uglifyOptions: {
-        output: {
-          semicolons: false,
-          comments: false // remove all comments,
-        }
-      },
-      sourceMap: false
-    })
-  ]);
+  module.exports = merge(module.exports, {
+    devtool: false,
+    mode: 'production',
+
+    plugins: [
+      new UglifyJSPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          output: {
+            semicolons: false,
+            comments: false
+          }
+        },
+        sourceMap: false
+      })
+    ]
+  })
 }
