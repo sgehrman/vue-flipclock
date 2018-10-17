@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="app-div">
   <flip-clock :options="options" />
 </div>
 </template>
@@ -32,3 +32,9 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+.app-div {
+    margin-top: 30px;
+}
+</style>
