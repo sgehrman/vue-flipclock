@@ -159,5 +159,5 @@ export default {
 }
 </script>
 <style lang="scss">
-@import './flipclock.css';
+@import './flipclock.scss';
 </style>
