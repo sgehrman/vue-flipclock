@@ -6,29 +6,11 @@
 </template>
 
 <script>
-import FlipClock from './flipclock.module.js'
+import FlipClock from './flipclock.js'
 
 export default {
-  name: 'flip-clock',
   props: {
-    /**
-     * An integer used to start the clock (no. seconds)
-     */
     digit: Number,
-    /**
-     * An object of properties to override the default
-     * {  time: Number, //时间，单位秒
-     *    label: Boolean, //是否显示时间label
-     *    dot: Boolean, //是否显示时间节点间隔的点
-     *    divider: {
-     *      days: String, //天与小时节点之间的分割
-     *      hours: String, //小时与分钟节点之间的分割
-     *      minutes: String, //分钟与秒节点之间的分割
-     *      seconds: String, //秒钟单位
-     *    }
-     *    ... 其他官方属性
-     * }
-     */
     options: {
       type: Object,
       default: () => {
@@ -158,6 +140,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 @import './flipclock.scss';
 </style>

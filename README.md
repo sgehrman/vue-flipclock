@@ -1,3 +1,3 @@
 # FlipClock
 
-simplified
+simplified and modernized
