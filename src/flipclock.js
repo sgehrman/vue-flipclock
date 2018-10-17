@@ -232,7 +232,6 @@ FlipClock.Base = Base.extend({
 FlipClock.Face = FlipClock.Base.extend({
   autoStart: true,
   dividers: [],
-  label: true,
   dot: true,
   factory: false,
   lists: [],
@@ -1009,7 +1008,7 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
         let wrap = fullWrap.appendChild(Base.createDom('<div style="display: flex; flex-direction: column;"></div>'))
         const parent = wrap.appendChild(Base.createDom('<div style="display: flex;"></div>'))
-        wrap.appendChild(Base.createDom('<div>' + items.names[i] + '</div>'))
+        wrap.appendChild(Base.createDom('<div class="' + this.factory.classes.label + '">' + items.names[i] + '</div>'))
 
         clump.forEach(function(digit, i) {
           t.createList(digit, {}, parent)
