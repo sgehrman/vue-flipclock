@@ -1,6 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const {
   VueLoaderPlugin
 } = require('vue-loader')
@@ -79,18 +79,20 @@ if (process.env.NODE_ENV === 'production') {
     devtool: false,
     mode: 'production',
 
-    plugins: [
-      new UglifyJSPlugin({
-        cache: true,
-        parallel: true,
-        uglifyOptions: {
-          output: {
-            semicolons: false,
-            comments: false
+    // added to kill all comments, remove if you don't care (16k smaller too)
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            cache: true,
+            parallel: true,
+            output: {
+              comments: false,
+              semicolons: false
+            }
           }
-        },
-        sourceMap: false
-      })
-    ]
+        })
+      ]
+    }
   })
 }
