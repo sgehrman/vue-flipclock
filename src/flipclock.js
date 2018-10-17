@@ -273,11 +273,6 @@ FlipClock.Face = FlipClock.Base.extend({
       ' ' +
       (css ? css : '').toLowerCase() +
       '">',
-      '<span class="' +
-      this.factory.classes.label +
-      '">' +
-      (this.label && label ? label : '') +
-      '</span>',
       dots,
       '</span>'
     ]
@@ -1165,12 +1160,15 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
     if (time.length > children.length) {
       time.forEach((clump, i) => {
+        let fullWrap = this.factory.$el.appendChild(Base.createDom('<div style="display: flex;"></div>'))
 
-        let wrap = this.factory.$el.appendChild(Base.createDom('<div style="display: flex; flex-direction: column;"></div>'))
+        if (i !== 0) {
+          fullWrap.appendChild(this.createDivider('Seconds'))
+        }
+
+        let wrap = fullWrap.appendChild(Base.createDom('<div style="display: flex; flex-direction: column;"></div>'))
         const parent = wrap.appendChild(Base.createDom('<div style="display: flex;"></div>'))
         wrap.appendChild(Base.createDom('<div>Fuck You</div>'))
-
-        // this.createDivider('Seconds'),
 
         clump.forEach(function(digit, i) {
           t.createList(digit, {}, parent)
