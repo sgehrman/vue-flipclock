@@ -289,13 +289,13 @@ FlipClock.Face = FlipClock.Base.extend({
     return $html
   },
 
-  createList: function(digit, options) {
+  createList: function(digit, options, parentNode) {
     if (typeof digit === 'object') {
       options = digit
       digit = 0
     }
 
-    let obj = new FlipClock.List(this.factory, digit, options)
+    let obj = new FlipClock.List(this.factory, digit, options, parentNode)
 
     this.lists.push(obj)
 
@@ -305,10 +305,7 @@ FlipClock.Face = FlipClock.Base.extend({
   reset: function() {
     this.factory.time = new FlipClock.Time(
       this.factory,
-      this.factory.original ? Math.round(this.factory.original) : 0, {
-        minimumDigits: this.factory.minimumDigits
-      }
-    )
+      this.factory.original ? Math.round(this.factory.original) : 0, {})
 
     this.flip(this.factory.original, false)
   },
@@ -402,7 +399,6 @@ FlipClock.Factory = FlipClock.Base.extend({
   face: true,
   lang: false,
   language: 'english',
-  minimumDigits: 0,
   original: false,
   running: false,
   time: false,
@@ -428,7 +424,6 @@ FlipClock.Factory = FlipClock.Base.extend({
       digit instanceof Date ? digit : digit ? Math.round(digit) : 0
 
     this.time = new FlipClock.Time(this, this.original, {
-      minimumDigits: this.minimumDigits,
       animationRate: this.animationRate
     })
 
@@ -456,8 +451,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     }
 
     this.$el.innerHTML = ''
-
-    this.time.minimumDigits = this.minimumDigits
 
     if (FlipClock[name]) {
       face = new FlipClock[name](this, options)
@@ -578,24 +571,24 @@ FlipClock.List = FlipClock.Base.extend({
 
   factory: false,
   $el: false,
-  $obj: false,
   items: [],
   lastDigit: 0,
 
-  constructor: function(factory, digit, options) {
+  constructor: function(factory, digit, options, parentEl = null) {
     this.factory = factory
     this.digit = digit
     this.lastDigit = digit
     this.$el = this.createList()
 
-    // Depcrated support of the $obj property.
-    this.$obj = this.$el
-
     if (digit > 0) {
       this.select(digit)
     }
 
-    this.factory.$el.appendChild(this.$el)
+    if (parentEl) {
+      parentEl.appendChild(this.$el)
+    } else {
+      this.factory.$el.appendChild(this.$el)
+    }
   },
 
   select: function(digit) {
@@ -687,15 +680,10 @@ String.prototype.ucfirst = function() {
 FlipClock.Time = FlipClock.Base.extend({
   time: 0,
   factory: false,
-  minimumDigits: 0,
 
   constructor: function(factory, time, options) {
     if (typeof options !== 'object') {
       options = {}
-    }
-
-    if (!options.minimumDigits) {
-      options.minimumDigits = factory.minimumDigits
     }
 
     this.base(options)
@@ -731,10 +719,16 @@ FlipClock.Time = FlipClock.Base.extend({
     return false
   },
 
-  digitize: function(obj) {
+  digitize: function(obj, clumps = false) {
     let data = []
 
     obj.forEach(function(value, i) {
+      let dest = data
+
+      if (clumps) {
+        dest = []
+      }
+
       value = value.toString()
 
       if (value.length === 1) {
@@ -742,19 +736,13 @@ FlipClock.Time = FlipClock.Base.extend({
       }
 
       for (let x = 0; x < value.length; x++) {
-        data.push(value.charAt(x))
+        dest.push(value.charAt(x))
+      }
+
+      if (clumps) {
+        data.push(dest)
       }
     })
-
-    if (data.length > this.minimumDigits) {
-      this.minimumDigits = data.length
-    }
-
-    if (this.minimumDigits > data.length) {
-      for (let x = data.length; x < this.minimumDigits; x++) {
-        data.unshift('0')
-      }
-    }
 
     return data
   },
@@ -767,14 +755,14 @@ FlipClock.Time = FlipClock.Base.extend({
     return new Date(new Date().getTime() + this.getTimeSeconds() * 1000)
   },
 
-  getDayCounter: function(includeSeconds) {
+  getDayCounter: function(includeSeconds, clumps = false) {
     let digits = [this.getDays(), this.getHours(true), this.getMinutes(true)]
 
     if (includeSeconds) {
       digits.push(this.getSeconds(true))
     }
 
-    return this.digitize(digits)
+    return this.digitize(digits, clumps)
   },
 
   getDays: function(mod) {
@@ -1169,39 +1157,26 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
     this.base(factory, options)
   },
 
-  build: function(time) {
+  build: function(unusedTime) {
     let t = this
     let children = this.factory.$el.querySelectorAll('ul')
-    let offset = 0
 
-    time = time ? time : this.factory.time.getDayCounter(this.showSeconds)
+    const time = this.factory.time.getDayCounter(this.showSeconds, true)
 
     if (time.length > children.length) {
-      time.forEach(function(digit, i) {
-        t.createList(digit)
+      time.forEach((clump, i) => {
+
+        let wrap = this.factory.$el.appendChild(Base.createDom('<div style="display: flex; flex-direction: column;"></div>'))
+        const parent = wrap.appendChild(Base.createDom('<div style="display: flex;"></div>'))
+        wrap.appendChild(Base.createDom('<div>Fuck You</div>'))
+
+        // this.createDivider('Seconds'),
+
+        clump.forEach(function(digit, i) {
+          t.createList(digit, {}, parent)
+        })
       })
     }
-
-    if (this.showSeconds) {
-      Base.insertBefore(
-        this.createDivider('Seconds'),
-        this.lists[this.lists.length - 2].$el
-      )
-    } else {
-      offset = 2
-    }
-
-    Base.insertBefore(
-      this.createDivider('Minutes'),
-      this.lists[this.lists.length - 4 + offset].$el
-    )
-
-    Base.insertBefore(
-      this.createDivider('Hours'),
-      this.lists[this.lists.length - 6 + offset].$el
-    )
-
-    Base.insertBefore(this.createDivider('Days', true), this.lists[0].$el)
 
     this.base()
   },
