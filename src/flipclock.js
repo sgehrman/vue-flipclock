@@ -250,29 +250,14 @@ FlipClock.Face = FlipClock.Base.extend({
     }
   },
 
-  createDivider: function(label, css, excludeDots) {
-    if (typeof css === 'boolean' || !css) {
-      excludeDots = css
-      css = label
-    }
-
+  createDivider: function() {
     let dots = [
       '<span class="' + this.factory.classes.dot + ' top"></span>',
       '<span class="' + this.factory.classes.dot + ' bottom"></span>'
     ].join('')
 
-    if (excludeDots || !this.dot) {
-      dots = ''
-    }
-
-    label = this.factory.localize(label)
-
     let html = [
-      '<span class="' +
-      this.factory.classes.divider +
-      ' ' +
-      (css ? css : '').toLowerCase() +
-      '">',
+      '<span class="' + this.factory.classes.divider + '">',
       dots,
       '</span>'
     ]
@@ -753,7 +738,10 @@ FlipClock.Time = FlipClock.Base.extend({
   getDayCounter: function(clumps = false) {
     let digits = [this.getDays(), this.getHours(true), this.getMinutes(true), this.getSeconds(true)]
 
-    return this.digitize(digits, clumps)
+    return {
+      names: [this.factory.localize('Days'), this.factory.localize('Hours'), this.factory.localize('Minutes'), this.factory.localize('Seconds')],
+      digits: this.digitize(digits, clumps)
+    }
   },
 
   getDays: function(mod) {
@@ -1008,19 +996,20 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
     let t = this
     let children = this.factory.$el.querySelectorAll('ul')
 
-    const time = this.factory.time.getDayCounter(true)
+    const items = this.factory.time.getDayCounter(true)
+    const time = items.digits
 
     if (time.length > children.length) {
       time.forEach((clump, i) => {
         let fullWrap = this.factory.$el.appendChild(Base.createDom('<div style="display: flex;"></div>'))
 
         if (i !== 0) {
-          fullWrap.appendChild(this.createDivider('Seconds'))
+          fullWrap.appendChild(this.createDivider())
         }
 
         let wrap = fullWrap.appendChild(Base.createDom('<div style="display: flex; flex-direction: column;"></div>'))
         const parent = wrap.appendChild(Base.createDom('<div style="display: flex;"></div>'))
-        wrap.appendChild(Base.createDom('<div>Fuck You</div>'))
+        wrap.appendChild(Base.createDom('<div>' + items.names[i] + '</div>'))
 
         clump.forEach(function(digit, i) {
           t.createList(digit, {}, parent)
@@ -1033,7 +1022,7 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
   flip: function(time, doNotAddPlayClass) {
     if (!time) {
-      time = this.factory.time.getDayCounter()
+      time = this.factory.time.getDayCounter().digits
     }
 
     this.autoIncrement()
