@@ -162,22 +162,6 @@ Base = Base.extend({
     return String(this.valueOf())
   }
 })
-/*jshint smarttabs:true */
-/**
- * FlipClock.js
- *
- * @author     Justin Kimbrell
- * @copyright  2013 - Objective HTML, LLC
- * @licesnse   http://www.opensource.org/licenses/mit-license.php
- */
-
-/**
- * FlipFlock Helper
- *
- * @param  object  A  object or CSS select
- * @param  int     An integer used to start the clock (no. seconds)
- * @param  object  An object of properties to override the default
- */
 
 let FlipClock = function(obj, digit, options) {
   if (digit instanceof Object && digit instanceof Date === false) {
@@ -194,33 +178,9 @@ let FlipClock = function(obj, digit, options) {
 
 FlipClock.Lang = {}
 
-/**
- * The Base FlipClock class is used to extend all other FlipFlock
- * classes. It handles the callbacks and the basic setters/getters
- *
- * @param  object  An object of the default properties
- * @param  object  An object of properties to override the default
- */
-
 FlipClock.Base = Base.extend({
-  /**
-   * Build Date
-   */
-
-  buildDate: '2014-12-12',
-
-  /**
-   * Version
-   */
-
-  version: '0.7.7',
-
-  /**
-   * Sets the default options
-   *
-   * @param object  The default options
-   * @param object  The override options
-   */
+  buildDate: '2018-10-18',
+  version: '1.7.7',
 
   constructor: function(_default, options) {
     if (typeof _default !== 'object') {
@@ -231,13 +191,6 @@ FlipClock.Base = Base.extend({
     }
     this.setOptions(Object.assign({}, _default, options))
   },
-
-  /**
-   * Delegates the callback to the defined method
-   *
-   * @param object  The default options
-   * @param object  The override options
-   */
 
   callback: function(method) {
     if (typeof method === 'function') {
@@ -253,25 +206,11 @@ FlipClock.Base = Base.extend({
     }
   },
 
-  /**
-   * Log a string into the console if it exists
-   *
-   * @param  string  The name of the option
-   * @return mixed
-   */
-
   log: function(str) {
     if (window.console && console.log) {
       console.log(str)
     }
   },
-
-  /**
-   * Get an single option value. Returns false if option does not exist
-   *
-   * @param  string  The name of the option
-   * @return mixed
-   */
 
   getOption: function(index) {
     if (this[index]) {
@@ -280,33 +219,13 @@ FlipClock.Base = Base.extend({
     return false
   },
 
-  /**
-   * Get all options
-   *
-   * @return bool
-   */
-
   getOptions: function() {
     return this
   },
 
-  /**
-   * Set a single option value
-   *
-   * @param  string  The name of the option
-   * @param  mixed  The value of the option
-   */
-
   setOption: function(index, value) {
     this[index] = value
   },
-
-  /**
-   * Set a multiple options by passing a JSON object
-   *
-   * @param  object  The object with the options
-   * @param  mixed  The value of the option
-   */
 
   setOptions: function(options) {
     for (let key in options) {
@@ -316,14 +235,6 @@ FlipClock.Base = Base.extend({
     }
   }
 })
-
-/**
- * The FlipClock Face class is the base class in which to extend
- * all other FlockClock.Face classes.
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.Face = FlipClock.Base.extend({
   /**
@@ -362,13 +273,6 @@ FlipClock.Face = FlipClock.Base.extend({
 
   lists: [],
 
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
-
   constructor: function(factory, options) {
     this.dividers = []
     this.lists = []
@@ -376,23 +280,11 @@ FlipClock.Face = FlipClock.Base.extend({
     this.factory = factory
   },
 
-  /**
-   * Build the clock face
-   */
-
   build: function() {
     if (this.autoStart) {
       this.start()
     }
   },
-
-  /**
-   * Creates a  object used for the digit divider
-   *
-   * @param mixed  The divider label text
-   * @param mixed Set true to exclude the dots in the divider.
-   *     If not set, is false.
-   */
 
   createDivider: function(label, css, excludeDots) {
     if (typeof css === 'boolean' || !css) {
@@ -433,13 +325,6 @@ FlipClock.Face = FlipClock.Base.extend({
     return $html
   },
 
-  /**
-   * Creates a FlipClock.List object and appends it to the DOM
-   *
-   * @param mixed  The digit to select in the list
-   * @param object  An object to override the default properties
-   */
-
   createList: function(digit, options) {
     if (typeof digit === 'object') {
       options = digit
@@ -453,10 +338,6 @@ FlipClock.Face = FlipClock.Base.extend({
     return obj
   },
 
-  /**
-   * Triggers when the clock is reset
-   */
-
   reset: function() {
     this.factory.time = new FlipClock.Time(
       this.factory,
@@ -468,17 +349,9 @@ FlipClock.Face = FlipClock.Base.extend({
     this.flip(this.factory.original, false)
   },
 
-  /**
-   * Append a newly created list to the clock
-   */
-
   appendDigitToClock: function(obj) {
     // obj.$el.append(false);
   },
-
-  /**
-   * Add a digit to the clock face
-   */
 
   addDigit: function(digit) {
     let obj = this.createList(digit, {
@@ -558,17 +431,6 @@ FlipClock.Face = FlipClock.Base.extend({
     })
   }
 })
-
-/**
- * The FlipClock Factory class is used to build the clock and manage
- * all the public methods.
- *
- * @param  object  A  object or CSS selector used to fetch
-         the wrapping DOM nodes
- * @param  mixed   This is the digit used to set the clock. If an
-         object is passed, 0 will be used.
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.Factory = FlipClock.Base.extend({
   /**
@@ -701,14 +563,6 @@ FlipClock.Factory = FlipClock.Base.extend({
 
   $wrapper: false,
 
-  /**
-   * Constructor
-   *
-   * @param   object  The wrapping  object
-   * @param object  Number of seconds used to start the clock
-   * @param object  An object override options
-   */
-
   constructor: function(obj, digit, options) {
     if (!options) {
       options = {}
@@ -743,13 +597,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Load the FlipClock.Face object
-   *
-   * @param object  The name of the FlickClock.Face class
-   * @param object  An object override options
-   */
-
   loadClockFace: function(name, options) {
     let face,
       suffix = 'Face',
@@ -783,12 +630,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     return this.face
   },
 
-  /**
-   * Load the FlipClock.Lang object
-   *
-   * @param object  The name of the language to load
-   */
-
   loadLanguage: function(name) {
     let lang
 
@@ -802,13 +643,6 @@ FlipClock.Factory = FlipClock.Base.extend({
 
     return (this.lang = lang)
   },
-
-  /**
-   * Localize strings into various languages
-   *
-   * @param string  The index of the localized string
-   * @param object  Optionally pass a lang object
-   */
 
   localize: function(index, obj) {
     let lang = this.lang
@@ -830,10 +664,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     return index
   },
 
-  /**
-   * Starts the clock
-   */
-
   start: function(callback) {
     let t = this
 
@@ -851,10 +681,6 @@ FlipClock.Factory = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Stops the clock
-   */
-
   stop: function(callback) {
     this.face.stop()
     this.timer.stop(callback)
@@ -866,37 +692,19 @@ FlipClock.Factory = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Reset the clock
-   */
-
   reset: function(callback) {
     this.timer.reset(callback)
     this.face.reset()
   },
-
-  /**
-   * Sets the clock time
-   */
 
   setTime: function(time) {
     this.time.time = time
     this.flip(true)
   },
 
-  /**
-   * Get the clock time
-   *
-   * @return  object  Returns a FlipClock.Time object
-   */
-
   getTime: function(time) {
     return this.time
   },
-
-  /**
-   * Changes the increment of time to up or down (add/sub)
-   */
 
   setCountdown: function(value) {
     let running = this.running
@@ -909,26 +717,10 @@ FlipClock.Factory = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Flip the digits on the clock
-   *
-   * @param  array  An array of digits
-   */
   flip: function(doNotAddPlayClass) {
     this.face.flip(false, doNotAddPlayClass)
   }
 })
-
-/**
- * The FlipClock List class is used to build the list used to create
- * the card flip effect. This object fascilates selecting the correct
- * node by passing a specific digit.
- *
- * @param  object  A FlipClock.Factory object
- * @param  mixed   This is the digit used to set the clock. If an
- *        object is passed, 0 will be used.
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.List = FlipClock.Base.extend({
   /**
@@ -977,14 +769,6 @@ FlipClock.List = FlipClock.Base.extend({
 
   lastDigit: 0,
 
-  /**
-   * Constructor
-   *
-   * @param  object  A FlipClock.Factory object
-   * @param  int     An integer use to select the correct digit
-   * @param  object  An object to override the default properties
-   */
-
   constructor: function(factory, digit, options) {
     this.factory = factory
     this.digit = digit
@@ -1000,12 +784,6 @@ FlipClock.List = FlipClock.Base.extend({
 
     this.factory.$el.appendChild(this.$el)
   },
-
-  /**
-   * Select the digit in the list
-   *
-   * @param  int  A digit 0-9
-   */
 
   select: function(digit) {
     if (typeof digit === 'undefined') {
@@ -1030,17 +808,9 @@ FlipClock.List = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Adds the play class to the DOM object
-   */
-
   play: function() {
     this.$el.classList.add(this.factory.classes.play)
   },
-
-  /**
-   * Removes the play class to the DOM object
-   */
 
   stop: function() {
     let t = this
@@ -1049,10 +819,6 @@ FlipClock.List = FlipClock.Base.extend({
       t.$el.classList.remove(t.factory.classes.play)
     }, this.factory.timer.interval)
   },
-
-  /**
-   * Creates the list item HTML and returns as a string
-   */
 
   createListItem: function(css, value) {
     return [
@@ -1071,17 +837,9 @@ FlipClock.List = FlipClock.Base.extend({
     ].join('')
   },
 
-  /**
-   * Append the list item to the parent DOM node
-   */
-
   appendListItem: function(css, value) {
     this.$el.appendChild(Base.createDom(this.createListItem(css, value)))
   },
-
-  /**
-   * Create the list of digits and appends it to the DOM object
-   */
 
   createList: function() {
     let lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit
@@ -1109,25 +867,9 @@ FlipClock.List = FlipClock.Base.extend({
   }
 })
 
-/**
- * Capitalize the first letter in a string
- *
- * @return string
- */
-
 String.prototype.ucfirst = function() {
   return this.substr(0, 1).toUpperCase() + this.substr(1)
 }
-
-/**
- * The FlipClock Time class is used to manage all the time
- * calculations.
- *
- * @param  object  A FlipClock.Factory object
- * @param  mixed   This is the digit used to set the clock. If an
- *        object is passed, 0 will be used.
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.Time = FlipClock.Base.extend({
   /**
@@ -1148,14 +890,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
   minimumDigits: 0,
 
-  /**
-   * Constructor
-   *
-   * @param  object  A FlipClock.Factory object
-   * @param  int     An integer use to select the correct digit
-   * @param  object  An object to override the default properties
-   */
-
   constructor: function(factory, time, options) {
     if (typeof options !== 'object') {
       options = {}
@@ -1173,13 +907,6 @@ FlipClock.Time = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Convert a string or integer to an array of digits
-   *
-   * @param   mixed  String or Integer of digits
-   * @return  array  An array of digits
-   */
-
   convertDigitsToArray: function(str) {
     let data = []
 
@@ -1194,14 +921,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return data
   },
 
-  /**
-   * Get a specific digit from the time integer
-   *
-   * @param   int    The specific digit to select from the time
-   * @return  mixed  Returns FALSE if no digit is found, otherwise
-   *       the method returns the defined digit
-   */
-
   digit: function(i) {
     let timeStr = this.toString()
     let length = timeStr.length
@@ -1212,13 +931,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
     return false
   },
-
-  /**
-   * Formats any array of digits into a valid array of digits
-   *
-   * @param   mixed  An array of digits
-   * @return  array  An array of digits
-   */
 
   digitize: function(obj) {
     let data = []
@@ -1248,12 +960,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return data
   },
 
-  /**
-   * Gets a new Date object for the current time
-   *
-   * @return  array  Returns a Date object
-   */
-
   getDateObject: function() {
     if (this.time instanceof Date) {
       return this.time
@@ -1261,12 +967,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
     return new Date(new Date().getTime() + this.getTimeSeconds() * 1000)
   },
-
-  /**
-   * Gets a digitized daily counter
-   *
-   * @return  object  Returns a digitized object
-   */
 
   getDayCounter: function(includeSeconds) {
     let digits = [this.getDays(), this.getHours(true), this.getMinutes(true)]
@@ -1278,13 +978,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return this.digitize(digits)
   },
 
-  /**
-   * Gets number of days
-   *
-   * @param   bool  Should perform a modulus? If not sent, then no.
-   * @return  int   Retuns a floored integer
-   */
-
   getDays: function(mod) {
     let days = this.getTimeSeconds() / 60 / 60 / 24
 
@@ -1294,12 +987,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
     return Math.floor(days)
   },
-
-  /**
-   * Gets an hourly breakdown
-   *
-   * @return  object  Returns a digitized object
-   */
 
   getHourCounter: function() {
     let obj = this.digitize([
@@ -1311,22 +998,9 @@ FlipClock.Time = FlipClock.Base.extend({
     return obj
   },
 
-  /**
-   * Gets an hourly breakdown
-   *
-   * @return  object  Returns a digitized object
-   */
-
   getHourly: function() {
     return this.getHourCounter()
   },
-
-  /**
-   * Gets number of hours
-   *
-   * @param   bool  Should perform a modulus? If not sent, then no.
-   * @return  int   Retuns a floored integer
-   */
 
   getHours: function(mod) {
     let hours = this.getTimeSeconds() / 60 / 60
@@ -1337,12 +1011,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
     return Math.floor(hours)
   },
-
-  /**
-   * Gets the twenty-four hour time
-   *
-   * @return  object  returns a digitized object
-   */
 
   getMilitaryTime: function(date, showSeconds) {
     if (typeof showSeconds === 'undefined') {
@@ -1362,13 +1030,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return this.digitize(data)
   },
 
-  /**
-   * Gets number of minutes
-   *
-   * @param   bool  Should perform a modulus? If not sent, then no.
-   * @return  int   Retuns a floored integer
-   */
-
   getMinutes: function(mod) {
     let minutes = this.getTimeSeconds() / 60
 
@@ -1379,21 +1040,11 @@ FlipClock.Time = FlipClock.Base.extend({
     return Math.floor(minutes)
   },
 
-  /**
-   * Gets a minute breakdown
-   */
-
   getMinuteCounter: function() {
     let obj = this.digitize([this.getMinutes(), this.getSeconds(true)])
 
     return obj
   },
-
-  /**
-   * Gets time count in seconds regardless of if targetting date or not.
-   *
-   * @return  int   Returns a floored integer
-   */
 
   getTimeSeconds: function(date) {
     if (!date) {
@@ -1408,12 +1059,6 @@ FlipClock.Time = FlipClock.Base.extend({
     }
     return this.time
   },
-
-  /**
-   * Gets the current twelve hour time
-   *
-   * @return  object  Returns a digitized object
-   */
 
   getTime: function(date, showSeconds) {
     if (typeof showSeconds === 'undefined') {
@@ -1439,13 +1084,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return this.digitize(data)
   },
 
-  /**
-   * Gets number of seconds
-   *
-   * @param   bool  Should perform a modulus? If not sent, then no.
-   * @return  int   Retuns a ceiled integer
-   */
-
   getSeconds: function(mod) {
     let seconds = this.getTimeSeconds()
 
@@ -1459,13 +1097,6 @@ FlipClock.Time = FlipClock.Base.extend({
 
     return Math.ceil(seconds)
   },
-
-  /**
-   * Gets number of weeks
-   *
-   * @param   bool  Should perform a modulus? If not sent, then no.
-   * @return  int   Retuns a floored integer
-   */
 
   getWeeks: function(mod) {
     let weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7
