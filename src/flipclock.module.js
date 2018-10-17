@@ -202,8 +202,8 @@ FlipClock.Lang = {}
  * The Base FlipClock class is used to extend all other FlipFlock
  * classes. It handles the callbacks and the basic setters/getters
  *
- * @param 	object  An object of the default properties
- * @param 	object  An object of properties to override the default
+ * @param  object  An object of the default properties
+ * @param  object  An object of properties to override the default
  */
 
 FlipClock.Base = Base.extend({
@@ -222,8 +222,8 @@ FlipClock.Base = Base.extend({
   /**
    * Sets the default options
    *
-   * @param	object 	The default options
-   * @param	object 	The override options
+   * @param object  The default options
+   * @param object  The override options
    */
 
   constructor: function(_default, options) {
@@ -239,8 +239,8 @@ FlipClock.Base = Base.extend({
   /**
    * Delegates the callback to the defined method
    *
-   * @param	object 	The default options
-   * @param	object 	The override options
+   * @param object  The default options
+   * @param object  The override options
    */
 
   callback: function(method) {
@@ -260,8 +260,8 @@ FlipClock.Base = Base.extend({
   /**
    * Log a string into the console if it exists
    *
-   * @param 	string 	The name of the option
-   * @return	mixed
+   * @param  string  The name of the option
+   * @return mixed
    */
 
   log: function(str) {
@@ -273,8 +273,8 @@ FlipClock.Base = Base.extend({
   /**
    * Get an single option value. Returns false if option does not exist
    *
-   * @param 	string 	The name of the option
-   * @return	mixed
+   * @param  string  The name of the option
+   * @return mixed
    */
 
   getOption: function(index) {
@@ -287,7 +287,7 @@ FlipClock.Base = Base.extend({
   /**
    * Get all options
    *
-   * @return	bool
+   * @return bool
    */
 
   getOptions: function() {
@@ -297,8 +297,8 @@ FlipClock.Base = Base.extend({
   /**
    * Set a single option value
    *
-   * @param 	string 	The name of the option
-   * @param 	mixed 	The value of the option
+   * @param  string  The name of the option
+   * @param  mixed  The value of the option
    */
 
   setOption: function(index, value) {
@@ -308,8 +308,8 @@ FlipClock.Base = Base.extend({
   /**
    * Set a multiple options by passing a JSON object
    *
-   * @param 	object 	The object with the options
-   * @param 	mixed 	The value of the option
+   * @param  object  The object with the options
+   * @param  mixed  The value of the option
    */
 
   setOptions: function(options) {
@@ -325,8 +325,8 @@ FlipClock.Base = Base.extend({
  * The FlipClock Face class is the base class in which to extend
  * all other FlockClock.Face classes.
  *
- * @param 	object  The parent FlipClock.Factory object
- * @param 	object  An object of properties to override the default
+ * @param  object  The parent FlipClock.Factory object
+ * @param  object  An object of properties to override the default
  */
 
 FlipClock.Face = FlipClock.Base.extend({
@@ -369,8 +369,8 @@ FlipClock.Face = FlipClock.Base.extend({
   /**
    * Constructor
    *
-   * @param 	object  The parent FlipClock.Factory object
-   * @param 	object  An object of properties to override the default
+   * @param  object  The parent FlipClock.Factory object
+   * @param  object  An object of properties to override the default
    */
 
   constructor: function(factory, options) {
@@ -393,9 +393,9 @@ FlipClock.Face = FlipClock.Base.extend({
   /**
    * Creates a  object used for the digit divider
    *
-   * @param	mixed 	The divider label text
-   * @param	mixed	Set true to exclude the dots in the divider.
-   *					If not set, is false.
+   * @param mixed  The divider label text
+   * @param mixed Set true to exclude the dots in the divider.
+   *     If not set, is false.
    */
 
   createDivider: function(label, css, excludeDots) {
@@ -440,8 +440,8 @@ FlipClock.Face = FlipClock.Base.extend({
   /**
    * Creates a FlipClock.List object and appends it to the DOM
    *
-   * @param	mixed 	The digit to select in the list
-   * @param	object  An object to override the default properties
+   * @param mixed  The digit to select in the list
+   * @param object  An object to override the default properties
    */
 
   createList: function(digit, options) {
@@ -567,11 +567,11 @@ FlipClock.Face = FlipClock.Base.extend({
  * The FlipClock Factory class is used to build the clock and manage
  * all the public methods.
  *
- * @param 	object  A  object or CSS selector used to fetch
- 				    the wrapping DOM nodes
- * @param 	mixed   This is the digit used to set the clock. If an
- 				    object is passed, 0 will be used.
- * @param 	object  An object of properties to override the default
+ * @param  object  A  object or CSS selector used to fetch
+         the wrapping DOM nodes
+ * @param  mixed   This is the digit used to set the clock. If an
+         object is passed, 0 will be used.
+ * @param  object  An object of properties to override the default
  */
 
 FlipClock.Factory = FlipClock.Base.extend({
@@ -709,8 +709,8 @@ FlipClock.Factory = FlipClock.Base.extend({
    * Constructor
    *
    * @param   object  The wrapping  object
-   * @param	object  Number of seconds used to start the clock
-   * @param	object 	An object override options
+   * @param object  Number of seconds used to start the clock
+   * @param object  An object override options
    */
 
   constructor: function(obj, digit, options) {
@@ -750,8 +750,8 @@ FlipClock.Factory = FlipClock.Base.extend({
   /**
    * Load the FlipClock.Face object
    *
-   * @param	object  The name of the FlickClock.Face class
-   * @param	object 	An object override options
+   * @param object  The name of the FlickClock.Face class
+   * @param object  An object override options
    */
 
   loadClockFace: function(name, options) {
@@ -790,7 +790,7 @@ FlipClock.Factory = FlipClock.Base.extend({
   /**
    * Load the FlipClock.Lang object
    *
-   * @param	object  The name of the language to load
+   * @param object  The name of the language to load
    */
 
   loadLanguage: function(name) {
@@ -810,8 +810,8 @@ FlipClock.Factory = FlipClock.Base.extend({
   /**
    * Localize strings into various languages
    *
-   * @param	string  The index of the localized string
-   * @param	object  Optionally pass a lang object
+   * @param string  The index of the localized string
+   * @param object  Optionally pass a lang object
    */
 
   localize: function(index, obj) {
@@ -928,10 +928,10 @@ FlipClock.Factory = FlipClock.Base.extend({
  * the card flip effect. This object fascilates selecting the correct
  * node by passing a specific digit.
  *
- * @param 	object  A FlipClock.Factory object
- * @param 	mixed   This is the digit used to set the clock. If an
- *				    object is passed, 0 will be used.
- * @param 	object  An object of properties to override the default
+ * @param  object  A FlipClock.Factory object
+ * @param  mixed   This is the digit used to set the clock. If an
+ *        object is passed, 0 will be used.
+ * @param  object  An object of properties to override the default
  */
 
 FlipClock.List = FlipClock.Base.extend({
@@ -1127,10 +1127,10 @@ String.prototype.ucfirst = function() {
  * The FlipClock Time class is used to manage all the time
  * calculations.
  *
- * @param 	object  A FlipClock.Factory object
- * @param 	mixed   This is the digit used to set the clock. If an
- *				    object is passed, 0 will be used.
- * @param 	object  An object of properties to override the default
+ * @param  object  A FlipClock.Factory object
+ * @param  mixed   This is the digit used to set the clock. If an
+ *        object is passed, 0 will be used.
+ * @param  object  An object of properties to override the default
  */
 
 FlipClock.Time = FlipClock.Base.extend({
@@ -1203,7 +1203,7 @@ FlipClock.Time = FlipClock.Base.extend({
    *
    * @param   int    The specific digit to select from the time
    * @return  mixed  Returns FALSE if no digit is found, otherwise
-   *				   the method returns the defined digit
+   *       the method returns the defined digit
    */
 
   digit: function(i) {
@@ -1557,20 +1557,20 @@ FlipClock.Time = FlipClock.Base.extend({
   }
 
   /*
-	getYears: function() {
-		return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
-	},
+ getYears: function() {
+  return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
+ },
 
-	getDecades: function() {
-		return Math.floor(this.getWeeks() / 10);
-	}*/
+ getDecades: function() {
+  return Math.floor(this.getWeeks() / 10);
+ }*/
 })
 
 /**
  * The FlipClock.Timer object managers the JS timers
  *
- * @param	object  The parent FlipClock.Factory object
- * @param	object  Override the default options
+ * @param object  The parent FlipClock.Factory object
+ * @param object  Override the default options
  */
 
 FlipClock.Timer = FlipClock.Base.extend({
@@ -1615,7 +1615,7 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * Constructor
    *
-   * @return	void
+   * @return void
    */
 
   constructor: function(factory, options) {
@@ -1628,7 +1628,7 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method gets the elapsed the time as an interger
    *
-   * @return	void
+   * @return void
    */
 
   getElapsed: function() {
@@ -1638,7 +1638,7 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method gets the elapsed the time as a Date object
    *
-   * @return	void
+   * @return void
    */
 
   getElapsedTime: function() {
@@ -1648,8 +1648,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method is resets the timer
    *
-   * @param 	callback  This method resets the timer back to 0
-   * @return	void
+   * @param  callback  This method resets the timer back to 0
+   * @return void
    */
 
   reset: function(callback) {
@@ -1662,8 +1662,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method is starts the timer
    *
-   * @param 	callback  A function that is called once the timer is destroyed
-   * @return	void
+   * @param  callback  A function that is called once the timer is destroyed
+   * @return void
    */
 
   start: function(callback) {
@@ -1675,8 +1675,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method is stops the timer
    *
-   * @param 	callback  A function that is called once the timer is destroyed
-   * @return	void
+   * @param  callback  A function that is called once the timer is destroyed
+   * @return void
    */
 
   stop: function(callback) {
@@ -1689,7 +1689,7 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * Clear the timer interval
    *
-   * @return	void
+   * @return void
    */
 
   _clearInterval: function() {
@@ -1699,8 +1699,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * Create the timer object
    *
-   * @param 	callback  A function that is called once the timer is created
-   * @return	void
+   * @param  callback  A function that is called once the timer is created
+   * @return void
    */
 
   _createTimer: function(callback) {
@@ -1710,8 +1710,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * Destroy the timer object
    *
-   * @param 	callback  A function that is called once the timer is destroyed
-   * @return	void
+   * @param  callback  A function that is called once the timer is destroyed
+   * @return void
    */
 
   _destroyTimer: function(callback) {
@@ -1724,8 +1724,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This method is called each time the timer interval is ran
    *
-   * @param 	callback  A function that is called once the timer is destroyed
-   * @return	void
+   * @param  callback  A function that is called once the timer is destroyed
+   * @return void
    */
 
   _interval: function(callback) {
@@ -1737,8 +1737,8 @@ FlipClock.Timer = FlipClock.Base.extend({
   /**
    * This sets the timer interval
    *
-   * @param 	callback  A function that is called once the timer is destroyed
-   * @return	void
+   * @param  callback  A function that is called once the timer is destroyed
+   * @return void
    */
 
   _setInterval: function(callback) {

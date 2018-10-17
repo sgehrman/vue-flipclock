@@ -109,6 +109,7 @@ module.exports = {
         allowKeywords: true
       }
     ],
+    'no-tabs': 2,
     'operator-linebreak': [2, 'after'], //换行时运算符在行尾还是行首
     'space-after-keywords': [0, 'always'], //关键字后面是否要空一格
     'space-infix-ops': 2, //中缀操作符周围要不要有空格
