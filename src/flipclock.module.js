@@ -1477,15 +1477,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return Math.floor(weeks)
   },
 
-  /**
-   * Removes a specific number of leading zeros from the array.
-   * This method prevents you from removing too many digits, even
-   * if you try.
-   *
-   * @param   int    Total number of digits to remove
-   * @return  array  An array of digits
-   */
-
   removeLeadingZeros: function(totalDigits, digits) {
     let total = 0
     let newArray = []
@@ -1504,10 +1495,6 @@ FlipClock.Time = FlipClock.Base.extend({
     return digits
   },
 
-  /**
-   * Adds X second to the current time
-   */
-
   addSeconds: function(x) {
     if (this.time instanceof Date) {
       this.time.setSeconds(this.time.getSeconds() + x)
@@ -1516,17 +1503,9 @@ FlipClock.Time = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Adds 1 second to the current time
-   */
-
   addSecond: function() {
     this.addSeconds(1)
   },
-
-  /**
-   * Substracts X seconds from the current time
-   */
 
   subSeconds: function(x) {
     if (this.time instanceof Date) {
@@ -1536,44 +1515,16 @@ FlipClock.Time = FlipClock.Base.extend({
     }
   },
 
-  /**
-   * Substracts 1 second from the current time
-   */
-
   subSecond: function() {
     this.subSeconds(1)
   },
 
-  /**
-   * Converts the object to a human readable string
-   */
-
   toString: function() {
     return this.getTimeSeconds().toString()
   }
-
-  /*
- getYears: function() {
-  return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
- },
-
- getDecades: function() {
-  return Math.floor(this.getWeeks() / 10);
- }*/
 })
 
-/**
- * The FlipClock.Timer object managers the JS timers
- *
- * @param object  The parent FlipClock.Factory object
- * @param object  Override the default options
- */
-
 FlipClock.Timer = FlipClock.Base.extend({
-  /**
-   * Callbacks
-   */
-
   callbacks: {
     destroy: false,
     create: false,
@@ -1608,12 +1559,6 @@ FlipClock.Timer = FlipClock.Base.extend({
 
   animationRate: 1000,
 
-  /**
-   * Constructor
-   *
-   * @return void
-   */
-
   constructor: function(factory, options) {
     this.base(options)
     this.factory = factory
@@ -1621,32 +1566,13 @@ FlipClock.Timer = FlipClock.Base.extend({
     this.callback(this.callbacks.create)
   },
 
-  /**
-   * This method gets the elapsed the time as an interger
-   *
-   * @return void
-   */
-
   getElapsed: function() {
     return this.count * this.interval
   },
 
-  /**
-   * This method gets the elapsed the time as a Date object
-   *
-   * @return void
-   */
-
   getElapsedTime: function() {
     return new Date(this.time + this.getElapsed())
   },
-
-  /**
-   * This method is resets the timer
-   *
-   * @param  callback  This method resets the timer back to 0
-   * @return void
-   */
 
   reset: function(callback) {
     clearInterval(this.timer)
@@ -1655,25 +1581,11 @@ FlipClock.Timer = FlipClock.Base.extend({
     this.callback(this.callbacks.reset)
   },
 
-  /**
-   * This method is starts the timer
-   *
-   * @param  callback  A function that is called once the timer is destroyed
-   * @return void
-   */
-
   start: function(callback) {
     this.factory.running = true
     this._createTimer(callback)
     this.callback(this.callbacks.start)
   },
-
-  /**
-   * This method is stops the timer
-   *
-   * @param  callback  A function that is called once the timer is destroyed
-   * @return void
-   */
 
   stop: function(callback) {
     this.factory.running = false
@@ -1682,33 +1594,13 @@ FlipClock.Timer = FlipClock.Base.extend({
     this.callback(callback)
   },
 
-  /**
-   * Clear the timer interval
-   *
-   * @return void
-   */
-
   _clearInterval: function() {
     clearInterval(this.timer)
   },
 
-  /**
-   * Create the timer object
-   *
-   * @param  callback  A function that is called once the timer is created
-   * @return void
-   */
-
   _createTimer: function(callback) {
     this._setInterval(callback)
   },
-
-  /**
-   * Destroy the timer object
-   *
-   * @param  callback  A function that is called once the timer is destroyed
-   * @return void
-   */
 
   _destroyTimer: function(callback) {
     this._clearInterval()
@@ -1717,25 +1609,11 @@ FlipClock.Timer = FlipClock.Base.extend({
     this.callback(this.callbacks.destroy)
   },
 
-  /**
-   * This method is called each time the timer interval is ran
-   *
-   * @param  callback  A function that is called once the timer is destroyed
-   * @return void
-   */
-
   _interval: function(callback) {
     this.callback(this.callbacks.interval)
     this.callback(callback)
     this.count++
   },
-
-  /**
-   * This sets the timer interval
-   *
-   * @param  callback  A function that is called once the timer is destroyed
-   * @return void
-   */
 
   _setInterval: function(callback) {
     let t = this
@@ -1747,32 +1625,11 @@ FlipClock.Timer = FlipClock.Base.extend({
     }, this.interval)
   }
 })
-/**
- * Twenty-Four Hour Clock Face
- *
- * This class will generate a twenty-four our clock for FlipClock.js
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
-
   constructor: function(factory, options) {
     this.base(factory, options)
   },
-
-  /**
-   * Build the clock face
-   *
-   * @param  object  Pass the time that should be used to display on the clock.
-   */
 
   build: function(time) {
     let t = this
@@ -1806,10 +1663,6 @@ FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
     this.base()
   },
 
-  /**
-   * Flip the clock face
-   */
-
   flip: function(time, doNotAddPlayClass) {
     this.autoIncrement()
 
@@ -1820,15 +1673,6 @@ FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
     this.base(time, doNotAddPlayClass)
   }
 })
-/**
- * Counter Clock Face
- *
- * This class will generate a generice flip counter. The timer has been
- * disabled. clock.increment() and clock.decrement() have been added.
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.CounterFace = FlipClock.Face.extend({
   /**
@@ -1836,13 +1680,6 @@ FlipClock.CounterFace = FlipClock.Face.extend({
    */
 
   shouldAutoIncrement: false,
-
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
 
   constructor: function(factory, options) {
     if (typeof options !== 'object') {
@@ -1879,10 +1716,6 @@ FlipClock.CounterFace = FlipClock.Face.extend({
     this.base(factory, options)
   },
 
-  /**
-   * Build the clock face
-   */
-
   build: function() {
     let t = this
     let children = this.factory.$el.querySelectorAll('ul')
@@ -1903,10 +1736,6 @@ FlipClock.CounterFace = FlipClock.Face.extend({
     this.base()
   },
 
-  /**
-   * Flip the clock face
-   */
-
   flip: function(time, doNotAddPlayClass) {
     if (this.shouldAutoIncrement) {
       this.autoIncrement()
@@ -1919,10 +1748,6 @@ FlipClock.CounterFace = FlipClock.Face.extend({
     this.base(time, doNotAddPlayClass)
   },
 
-  /**
-   * Reset the clock face
-   */
-
   reset: function() {
     this.factory.time = new FlipClock.Time(
       this.factory,
@@ -1932,35 +1757,13 @@ FlipClock.CounterFace = FlipClock.Face.extend({
     this.flip()
   }
 })
-/**
- * Daily Counter Clock Face
- *
- * This class will generate a daily counter for FlipClock.js. A
- * daily counter will track days, hours, minutes, and seconds. If
- * the number of available digits is exceeded in the count, a new
- * digit will be created.
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.DailyCounterFace = FlipClock.Face.extend({
   showSeconds: true,
 
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
-
   constructor: function(factory, options) {
     this.base(factory, options)
   },
-
-  /**
-   * Build the clock face
-   */
 
   build: function(time) {
     let t = this
@@ -1999,10 +1802,6 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
     this.base()
   },
 
-  /**
-   * Flip the clock face
-   */
-
   flip: function(time, doNotAddPlayClass) {
     if (!time) {
       time = this.factory.time.getDayCounter(this.showSeconds)
@@ -2013,35 +1812,13 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
     this.base(time, doNotAddPlayClass)
   }
 })
-/**
- * Hourly Counter Clock Face
- *
- * This class will generate an hourly counter for FlipClock.js. An
- * hour counter will track hours, minutes, and seconds. If number of
- * available digits is exceeded in the count, a new digit will be
- * created.
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.HourlyCounterFace = FlipClock.Face.extend({
   // clearExcessDigits: true,
 
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
-
   constructor: function(factory, options) {
     this.base(factory, options)
   },
-
-  /**
-   * Build the clock face
-   */
 
   build: function(excludeHours, time) {
     let t = this
@@ -2072,10 +1849,6 @@ FlipClock.HourlyCounterFace = FlipClock.Face.extend({
     this.base()
   },
 
-  /**
-   * Flip the clock face
-   */
-
   flip: function(time, doNotAddPlayClass) {
     if (!time) {
       time = this.factory.time.getHourCounter()
@@ -2086,52 +1859,23 @@ FlipClock.HourlyCounterFace = FlipClock.Face.extend({
     this.base(time, doNotAddPlayClass)
   },
 
-  /**
-   * Append a newly created list to the clock
-   */
-
   appendDigitToClock: function(obj) {
     this.base(obj)
 
     this.dividers[0].insertAfter(this.dividers[0].next())
   }
 })
-/**
- * Minute Counter Clock Face
- *
- * This class will generate a minute counter for FlipClock.js. A
- * minute counter will track minutes and seconds. If an hour is
- * reached, the counter will reset back to 0. (4 digits max)
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
   clearExcessDigits: false,
-
-  /**
-   * Constructor
-   *
-   * @param  object  The parent FlipClock.Factory object
-   * @param  object  An object of properties to override the default
-   */
 
   constructor: function(factory, options) {
     this.base(factory, options)
   },
 
-  /**
-   * Build the clock face
-   */
-
   build: function() {
     this.base(true, this.factory.time.getMinuteCounter())
   },
-
-  /**
-   * Flip the clock face
-   */
 
   flip: function(time, doNotAddPlayClass) {
     if (!time) {
@@ -2141,14 +1885,6 @@ FlipClock.MinuteCounterFace = FlipClock.HourlyCounterFace.extend({
     this.base(time, doNotAddPlayClass)
   }
 })
-/**
- * Twelve Hour Clock Face
- *
- * This class will generate a twelve hour clock for FlipClock.js
- *
- * @param  object  The parent FlipClock.Factory object
- * @param  object  An object of properties to override the default
- */
 
 FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
   /**
@@ -2162,12 +1898,6 @@ FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
    */
 
   meridiumText: 'AM',
-
-  /**
-   * Build the clock face
-   *
-   * @param  object  Pass the time that should be used to display on the clock.
-   */
 
   build: function() {
     let time = this.factory.time.getTime(false, this.showSeconds)
@@ -2187,10 +1917,6 @@ FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
     this.meridium.insertAfter(this.lists[this.lists.length - 1].$el)
   },
 
-  /**
-   * Flip the clock face
-   */
-
   flip: function(time, doNotAddPlayClass) {
     if (this.meridiumText !== this.getMeridium()) {
       this.meridiumText = this.getMeridium()
@@ -2202,42 +1928,18 @@ FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
     )
   },
 
-  /**
-   * Get the current meridium
-   *
-   * @return  string  Returns the meridium (AM|PM)
-   */
-
   getMeridium: function() {
     return new Date().getHours() >= 12 ? 'PM' : 'AM'
   },
-
-  /**
-   * Is it currently in the post-medirium?
-   *
-   * @return  bool  Returns true or false
-   */
 
   isPM: function() {
     return this.getMeridium() === 'PM'
   },
 
-  /**
-   * Is it currently before the post-medirium?
-   *
-   * @return  bool  Returns true or false
-   */
-
   isAM: function() {
     return this.getMeridium() === 'AM'
   }
 })
-/**
- * FlipClock Arabic Language Pack
- *
- * This class will be used to translate tokens into the Arabic language.
- *
- */
 
 FlipClock.Lang.Arabic = {
   years: 'سنوات',
