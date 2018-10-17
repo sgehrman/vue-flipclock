@@ -750,12 +750,8 @@ FlipClock.Time = FlipClock.Base.extend({
     return new Date(new Date().getTime() + this.getTimeSeconds() * 1000)
   },
 
-  getDayCounter: function(includeSeconds, clumps = false) {
-    let digits = [this.getDays(), this.getHours(true), this.getMinutes(true)]
-
-    if (includeSeconds) {
-      digits.push(this.getSeconds(true))
-    }
+  getDayCounter: function(clumps = false) {
+    let digits = [this.getDays(), this.getHours(true), this.getMinutes(true), this.getSeconds(true)]
 
     return this.digitize(digits, clumps)
   },
@@ -794,20 +790,12 @@ FlipClock.Time = FlipClock.Base.extend({
     return Math.floor(hours)
   },
 
-  getMilitaryTime: function(date, showSeconds) {
-    if (typeof showSeconds === 'undefined') {
-      showSeconds = true
-    }
-
+  getMilitaryTime: function(date) {
     if (!date) {
       date = this.getDateObject()
     }
 
-    let data = [date.getHours(), date.getMinutes()]
-
-    if (showSeconds === true) {
-      data.push(date.getSeconds())
-    }
+    let data = [date.getHours(), date.getMinutes(), date.getSeconds()]
 
     return this.digitize(data)
   },
@@ -842,11 +830,7 @@ FlipClock.Time = FlipClock.Base.extend({
     return this.time
   },
 
-  getTime: function(date, showSeconds) {
-    if (typeof showSeconds === 'undefined') {
-      showSeconds = true
-    }
-
+  getTime: function(date) {
     if (!date) {
       date = this.getDateObject()
     }
@@ -857,9 +841,7 @@ FlipClock.Time = FlipClock.Base.extend({
       date.getMinutes()
     ]
 
-    if (showSeconds === true) {
-      data.push(date.getSeconds())
-    }
+    data.push(date.getSeconds())
 
     return this.digitize(data)
   },
@@ -1018,8 +1000,6 @@ FlipClock.Timer = FlipClock.Base.extend({
 })
 
 FlipClock.DailyCounterFace = FlipClock.Face.extend({
-  showSeconds: true,
-
   constructor: function(factory, options) {
     this.base(factory, options)
   },
@@ -1028,7 +1008,7 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
     let t = this
     let children = this.factory.$el.querySelectorAll('ul')
 
-    const time = this.factory.time.getDayCounter(this.showSeconds, true)
+    const time = this.factory.time.getDayCounter(true)
 
     if (time.length > children.length) {
       time.forEach((clump, i) => {
@@ -1053,7 +1033,7 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
 
   flip: function(time, doNotAddPlayClass) {
     if (!time) {
-      time = this.factory.time.getDayCounter(this.showSeconds)
+      time = this.factory.time.getDayCounter()
     }
 
     this.autoIncrement()
