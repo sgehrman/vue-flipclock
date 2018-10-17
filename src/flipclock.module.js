@@ -1,13 +1,13 @@
-var Base = function() {
+let Base = function() {
   // dummy
 }
 
 Base.createDom = function(el) {
   if (typeof el !== 'string') return el
-  var span = document.createElement('span')
+  let span = document.createElement('span')
   span.innerHTML = el
 
-  var _el = span.childNodes[0]
+  let _el = span.childNodes[0]
 
   span = null
   return _el
@@ -24,12 +24,12 @@ Base.extend = function(_instance, _static) {
 
   'use strict'
 
-  var extend = Base.prototype.extend
+  let extend = Base.prototype.extend
 
   // build the prototype
   Base._prototyping = true
 
-  var proto = new this()
+  let proto = new this()
 
   extend.call(proto, _instance)
 
@@ -40,9 +40,9 @@ Base.extend = function(_instance, _static) {
   delete Base._prototyping
 
   // create the wrapper for the constructor function
-  //var constructor = proto.constructor.valueOf(); //-dean
-  var constructor = proto.constructor
-  var klass = proto.constructor = function() {
+  //let constructor = proto.constructor.valueOf(); //-dean
+  let constructor = proto.constructor
+  let klass = proto.constructor = function() {
     if (!Base._prototyping) {
       if (this._constructing || this.constructor === klass) {
         // instantiation
@@ -79,7 +79,7 @@ Base.prototype = {
   extend: function(source, value) {
     if (arguments.length > 1) {
       // extending with a name/value pair
-      var ancestor = this[source]
+      let ancestor = this[source]
       if (
         ancestor &&
         typeof value === 'function' && // overriding a method?
@@ -88,12 +88,12 @@ Base.prototype = {
         /\bbase\b/.test(value)
       ) {
         // get the underlying method
-        var method = value.valueOf()
+        let method = value.valueOf()
         // override
         value = function() {
-          var previous = this.base || Base.prototype.base
+          let previous = this.base || Base.prototype.base
           this.base = ancestor
-          var returnValue = method.apply(this, arguments)
+          let returnValue = method.apply(this, arguments)
           this.base = previous
           return returnValue
         }
@@ -106,25 +106,25 @@ Base.prototype = {
       this[source] = value
     } else if (source) {
       // extending with an object literal
-      var extend = Base.prototype.extend
+      let extend = Base.prototype.extend
       // if this object has a customised extend method then use it
       if (!Base._prototyping && typeof this !== 'function') {
         extend = this.extend || extend
       }
-      var proto = {
+      let proto = {
         toSource: null
       }
       // do the "toString" and other methods manually
-      var hidden = ['constructor', 'toString', 'valueOf']
+      let hidden = ['constructor', 'toString', 'valueOf']
       // if we are prototyping then include the constructor
-      var i = Base._prototyping ? 0 : 1
+      let i = Base._prototyping ? 0 : 1
       while (key = hidden[i++]) {
         if (source[key] !== proto[key]) {
           extend.call(this, key, source[key])
         }
       }
       // copy each of the source object's properties to this object
-      for (var key in source) {
+      for (let key in source) {
         if (!proto[key]) extend.call(this, key, source[key])
       }
     }
@@ -142,7 +142,7 @@ Base = Base.extend({
   version: '1.1',
 
   forEach: function(object, block, context) {
-    for (var key in object) {
+    for (let key in object) {
       if (this.prototype[key] === undefined) {
         block.call(context, object[key], key, object)
       }
@@ -150,7 +150,7 @@ Base = Base.extend({
   },
 
   implement: function() {
-    for (var i = 0; i < arguments.length; i++) {
+    for (let i = 0; i < arguments.length; i++) {
       if (typeof arguments[i] === 'function') {
         // if it's a function, call it
         arguments[i](this.prototype)
@@ -183,7 +183,7 @@ Base = Base.extend({
  * @param  object  An object of properties to override the default
  */
 
-var FlipClock = function(obj, digit, options) {
+let FlipClock = function(obj, digit, options) {
   if (digit instanceof Object && digit instanceof Date === false) {
     options = digit
     digit = 0
@@ -245,9 +245,9 @@ FlipClock.Base = Base.extend({
 
   callback: function(method) {
     if (typeof method === 'function') {
-      var args = []
+      let args = []
 
-      for (var x = 1; x <= arguments.length; x++) {
+      for (let x = 1; x <= arguments.length; x++) {
         if (arguments[x]) {
           args.push(arguments[x])
         }
@@ -313,7 +313,7 @@ FlipClock.Base = Base.extend({
    */
 
   setOptions: function(options) {
-    for (var key in options) {
+    for (let key in options) {
       if (typeof options[key] !== 'undefined') {
         this.setOption(key, options[key])
       }
@@ -404,7 +404,7 @@ FlipClock.Face = FlipClock.Base.extend({
       css = label
     }
 
-    var dots = [
+    let dots = [
       '<span class="' + this.factory.classes.dot + ' top"></span>',
       '<span class="' + this.factory.classes.dot + ' bottom"></span>'
     ].join('')
@@ -415,7 +415,7 @@ FlipClock.Face = FlipClock.Base.extend({
 
     label = this.factory.localize(label)
 
-    var html = [
+    let html = [
       '<span class="' +
       this.factory.classes.divider +
       ' ' +
@@ -430,7 +430,7 @@ FlipClock.Face = FlipClock.Base.extend({
       '</span>'
     ]
 
-    var $html = Base.createDom(html.join(''))
+    let $html = Base.createDom(html.join(''))
 
     this.dividers.push($html)
 
@@ -450,7 +450,7 @@ FlipClock.Face = FlipClock.Base.extend({
       digit = 0
     }
 
-    var obj = new FlipClock.List(this.factory, digit, options)
+    let obj = new FlipClock.List(this.factory, digit, options)
 
     this.lists.push(obj)
 
@@ -485,7 +485,7 @@ FlipClock.Face = FlipClock.Base.extend({
    */
 
   addDigit: function(digit) {
-    var obj = this.createList(digit, {
+    let obj = this.createList(digit, {
       classes: {
         active: this.factory.classes.active,
         before: this.factory.classes.before,
@@ -545,10 +545,10 @@ FlipClock.Face = FlipClock.Base.extend({
    */
 
   flip: function(time, doNotAddPlayClass) {
-    var t = this
+    let t = this
 
     Array.isArray(time) && time.forEach(function(digit, i) {
-      var list = t.lists[i]
+      let list = t.lists[i]
 
       if (list) {
         if (!doNotAddPlayClass && digit !== list.digit) {
@@ -755,7 +755,7 @@ FlipClock.Factory = FlipClock.Base.extend({
    */
 
   loadClockFace: function(name, options) {
-    var face,
+    let face,
       suffix = 'Face',
       hasStopped = false
 
@@ -794,7 +794,7 @@ FlipClock.Factory = FlipClock.Base.extend({
    */
 
   loadLanguage: function(name) {
-    var lang
+    let lang
 
     if (FlipClock.Lang[name.ucfirst()]) {
       lang = FlipClock.Lang[name.ucfirst()]
@@ -815,13 +815,13 @@ FlipClock.Factory = FlipClock.Base.extend({
    */
 
   localize: function(index, obj) {
-    var lang = this.lang
+    let lang = this.lang
 
     if (!index) {
       return null
     }
 
-    var lindex = index.toLowerCase()
+    let lindex = index.toLowerCase()
 
     if (typeof obj === 'object') {
       lang = obj
@@ -839,7 +839,7 @@ FlipClock.Factory = FlipClock.Base.extend({
    */
 
   start: function(callback) {
-    var t = this
+    let t = this
 
     if (!t.running && (!t.countdown || t.countdown && t.time.time > 0)) {
       t.face.start(t.time)
@@ -863,7 +863,7 @@ FlipClock.Factory = FlipClock.Base.extend({
     this.face.stop()
     this.timer.stop(callback)
 
-    for (var x in this.lists) {
+    for (let x in this.lists) {
       if (this.lists.hasOwnProperty(x)) {
         this.lists[x].stop()
       }
@@ -903,7 +903,7 @@ FlipClock.Factory = FlipClock.Base.extend({
    */
 
   setCountdown: function(value) {
-    var running = this.running
+    let running = this.running
 
     this.countdown = Boolean(value)
 
@@ -1019,10 +1019,10 @@ FlipClock.List = FlipClock.Base.extend({
     }
 
     if (this.digit !== this.lastDigit) {
-      var $delete = this.$el.querySelector('.' + this.classes.before)
+      let $delete = this.$el.querySelector('.' + this.classes.before)
       $delete && $delete.classList.remove(this.classes.before)
 
-      var $active = this.$el.querySelector('.' + this.classes.active)
+      let $active = this.$el.querySelector('.' + this.classes.active)
       $active.classList.remove(this.classes.active)
       $active.classList.add(this.classes.before)
 
@@ -1047,7 +1047,7 @@ FlipClock.List = FlipClock.Base.extend({
    */
 
   stop: function() {
-    var t = this
+    let t = this
 
     setTimeout(function() {
       t.$el.classList.remove(t.factory.classes.play)
@@ -1088,7 +1088,7 @@ FlipClock.List = FlipClock.Base.extend({
    */
 
   createList: function() {
-    var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit
+    let lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit
 
     return Base.createDom(
       [
@@ -1185,11 +1185,11 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   convertDigitsToArray: function(str) {
-    var data = []
+    let data = []
 
     str = str.toString()
 
-    for (var x = 0; x < str.length; x++) {
+    for (let x = 0; x < str.length; x++) {
       if (str[x].match(/^\d*$/g)) {
         data.push(str[x])
       }
@@ -1207,8 +1207,8 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   digit: function(i) {
-    var timeStr = this.toString()
-    var length = timeStr.length
+    let timeStr = this.toString()
+    let length = timeStr.length
 
     if (timeStr[length - i]) {
       return timeStr[length - i]
@@ -1225,7 +1225,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   digitize: function(obj) {
-    var data = []
+    let data = []
 
     obj.forEach(function(value, i) {
       value = value.toString()
@@ -1234,7 +1234,7 @@ FlipClock.Time = FlipClock.Base.extend({
         value = '0' + value
       }
 
-      for (var x = 0; x < value.length; x++) {
+      for (let x = 0; x < value.length; x++) {
         data.push(value.charAt(x))
       }
     })
@@ -1244,7 +1244,7 @@ FlipClock.Time = FlipClock.Base.extend({
     }
 
     if (this.minimumDigits > data.length) {
-      for (var x = data.length; x < this.minimumDigits; x++) {
+      for (let x = data.length; x < this.minimumDigits; x++) {
         data.unshift('0')
       }
     }
@@ -1273,7 +1273,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getDayCounter: function(includeSeconds) {
-    var digits = [this.getDays(), this.getHours(true), this.getMinutes(true)]
+    let digits = [this.getDays(), this.getHours(true), this.getMinutes(true)]
 
     if (includeSeconds) {
       digits.push(this.getSeconds(true))
@@ -1290,7 +1290,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getDays: function(mod) {
-    var days = this.getTimeSeconds() / 60 / 60 / 24
+    let days = this.getTimeSeconds() / 60 / 60 / 24
 
     if (mod) {
       days = days % 7
@@ -1306,7 +1306,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getHourCounter: function() {
-    var obj = this.digitize([
+    let obj = this.digitize([
       this.getHours(),
       this.getMinutes(true),
       this.getSeconds(true)
@@ -1333,7 +1333,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getHours: function(mod) {
-    var hours = this.getTimeSeconds() / 60 / 60
+    let hours = this.getTimeSeconds() / 60 / 60
 
     if (mod) {
       hours = hours % 24
@@ -1357,7 +1357,7 @@ FlipClock.Time = FlipClock.Base.extend({
       date = this.getDateObject()
     }
 
-    var data = [date.getHours(), date.getMinutes()]
+    let data = [date.getHours(), date.getMinutes()]
 
     if (showSeconds === true) {
       data.push(date.getSeconds())
@@ -1374,7 +1374,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getMinutes: function(mod) {
-    var minutes = this.getTimeSeconds() / 60
+    let minutes = this.getTimeSeconds() / 60
 
     if (mod) {
       minutes = minutes % 60
@@ -1388,7 +1388,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getMinuteCounter: function() {
-    var obj = this.digitize([this.getMinutes(), this.getSeconds(true)])
+    let obj = this.digitize([this.getMinutes(), this.getSeconds(true)])
 
     return obj
   },
@@ -1430,8 +1430,8 @@ FlipClock.Time = FlipClock.Base.extend({
 
     console.log(date)
 
-    var hours = date.getHours()
-    var data = [
+    let hours = date.getHours()
+    let data = [
       hours > 12 ? hours - 12 : hours === 0 ? 12 : hours,
       date.getMinutes()
     ]
@@ -1451,7 +1451,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getSeconds: function(mod) {
-    var seconds = this.getTimeSeconds()
+    let seconds = this.getTimeSeconds()
 
     if (mod) {
       if (seconds === 60) {
@@ -1472,7 +1472,7 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   getWeeks: function(mod) {
-    var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7
+    let weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7
 
     if (mod) {
       weeks = weeks % 52
@@ -1491,8 +1491,8 @@ FlipClock.Time = FlipClock.Base.extend({
    */
 
   removeLeadingZeros: function(totalDigits, digits) {
-    var total = 0
-    var newArray = []
+    let total = 0
+    let newArray = []
     digits.forEach(function(digit, i) {
       if (i < totalDigits) {
         total += parseInt(digits[i], 10)
@@ -1742,7 +1742,7 @@ FlipClock.Timer = FlipClock.Base.extend({
    */
 
   _setInterval: function(callback) {
-    var t = this
+    let t = this
 
     t._interval(callback)
 
@@ -1779,8 +1779,8 @@ FlipClock.TwentyFourHourClockFace = FlipClock.Face.extend({
    */
 
   build: function(time) {
-    var t = this
-    var children = this.factory.$el.querySelectorAll('ul')
+    let t = this
+    let children = this.factory.$el.querySelectorAll('ul')
 
     if (!this.factory.time.time) {
       this.factory.original = new Date()
@@ -1866,7 +1866,7 @@ FlipClock.CounterFace = FlipClock.Face.extend({
 
     factory.decrement = function() {
       factory.countdown = true
-      var time = factory.getTime().getTimeSeconds()
+      let time = factory.getTime().getTimeSeconds()
       if (time > 0) {
         factory.setTime(time - 1)
       }
@@ -1888,13 +1888,13 @@ FlipClock.CounterFace = FlipClock.Face.extend({
    */
 
   build: function() {
-    var t = this
-    var children = this.factory.$el.querySelectorAll('ul')
-    var time = this.factory.getTime().digitize([this.factory.getTime().time])
+    let t = this
+    let children = this.factory.$el.querySelectorAll('ul')
+    let time = this.factory.getTime().digitize([this.factory.getTime().time])
 
     if (time.length > children.length) {
       time.forEach(function(digit, i) {
-        var list = t.createList(digit)
+        let list = t.createList(digit)
 
         list.select(digit)
       })
@@ -1967,9 +1967,9 @@ FlipClock.DailyCounterFace = FlipClock.Face.extend({
    */
 
   build: function(time) {
-    var t = this
-    var children = this.factory.$el.querySelectorAll('ul')
-    var offset = 0
+    let t = this
+    let children = this.factory.$el.querySelectorAll('ul')
+    let offset = 0
 
     time = time ? time : this.factory.time.getDayCounter(this.showSeconds)
 
@@ -2048,8 +2048,8 @@ FlipClock.HourlyCounterFace = FlipClock.Face.extend({
    */
 
   build: function(excludeHours, time) {
-    var t = this
-    var children = this.factory.$el.querySelectorAll('ul')
+    let t = this
+    let children = this.factory.$el.querySelectorAll('ul')
 
     time = time ? time : this.factory.time.getHourCounter()
 
@@ -2174,7 +2174,7 @@ FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
    */
 
   build: function() {
-    var time = this.factory.time.getTime(false, this.showSeconds)
+    let time = this.factory.time.getTime(false, this.showSeconds)
 
     this.base(time)
     this.meridiumText = this.getMeridium()
