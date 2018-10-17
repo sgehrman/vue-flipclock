@@ -7,10 +7,7 @@ Base.createDom = function(el) {
   let span = document.createElement('span')
   span.innerHTML = el
 
-  let _el = span.childNodes[0]
-
-  span = null
-  return _el
+  return span.childNodes[0]
 }
 
 Base.insertBefore = function(newEl, el) {
