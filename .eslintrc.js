@@ -8,8 +8,6 @@ module.exports = {
     es6: true
   },
   parserOptions: {
-    parser: 'babel-eslint',
-    //语法支持
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
@@ -22,7 +20,7 @@ module.exports = {
     // 'eslint:recommended',
     'plugin:vue/essential'
   ],
-  plugins: ['vue', 'flowtype'],
+  plugins: ['vue'],
   // add your custom rules here
   rules: {
     // allow paren-less arrow functions
@@ -54,7 +52,10 @@ module.exports = {
     'no-labels': 2, //禁止使用空label
     'no-extra-bind': 2, //禁止不必要的函数绑定
     'no-extra-boolean-cast': 2, //禁止不必要的bool转换
-    'no-extra-parens': [2, 'all', { returnAssign: false, ignoreJSX: 'all' }], //禁止非必要的括号
+    'no-extra-parens': [2, 'all', {
+      returnAssign: false,
+      ignoreJSX: 'all'
+    }], //禁止非必要的括号
     'no-extra-semi': 2, //禁止多余的分号
     'no-fallthrough': 1, //禁止switch穿透
     'no-func-assign': 2, //禁止重复的函数声明
@@ -85,7 +86,10 @@ module.exports = {
     'no-useless-rename': 2, //导入、导出和解构赋值，不要赋相同的名字，如 import { config as config } from './config'
     'no-whitespace-before-property': 2, //属性前不要有空格，如 user .name
     'comma-dangle': [2, 'never'], //对象字面量项尾不能有逗号
-    'comma-spacing': [2, { before: false, after: true }], //对象字面量中逗号的前后空格
+    'comma-spacing': [2, {
+      before: false,
+      after: true
+    }], //对象字面量中逗号的前后空格
     'comma-style': [2, 'last'], //逗号风格，换行时在行首还是行尾
     'no-redeclare': 2, //禁止重复声明变量
     'no-spaced-func': 2, //函数调用时 函数名与()之间不能有空格
@@ -131,19 +135,6 @@ module.exports = {
       2,
       {
         SwitchCase: 1
-      }
-    ],
-    'max-len': [
-      //每行最长字符
-      'error',
-      {
-        code: 80,
-        ignoreComments: true,
-        ignoreTrailingComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true,
-        ignoreRegExpLiterals: true
       }
     ],
     quotes: ['error', 'single'], //单引号
