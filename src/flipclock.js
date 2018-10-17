@@ -382,7 +382,6 @@ FlipClock.Factory = FlipClock.Base.extend({
   running: false,
   time: false,
   timer: false,
-  $wrapper: false,
 
   constructor: function(obj, digit, options) {
     if (!options) {
@@ -395,9 +394,6 @@ FlipClock.Factory = FlipClock.Base.extend({
 
     this.$el = this.base.createDom(obj)
     this.$el.classList.add(this.classes.wrapper)
-
-    // Depcrated support of the $wrapper property.
-    this.$wrapper = this.$el
 
     this.original =
       digit instanceof Date ? digit : digit ? Math.round(digit) : 0
